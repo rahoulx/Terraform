@@ -8,7 +8,7 @@ resource "aws_instance" "webinstance" {
   instance_type = "t2.micro"
   associate_public_ip_address = true
   key_name = "mumbai-awskey"
-  security_groups = ["default"]
+  security_groups = ["sg-09ac645ba936eab49"]
 
   ebs_block_device {
     device_name = "/dev/sda1"
