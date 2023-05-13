@@ -8,7 +8,7 @@ resource "aws_iam_group_membership" "team" {
   users = [
     aws_iam_user.user_one.name,
     aws_iam_user.user_two.name,
-	aws_iam_user.user_threename,
+	aws_iam_user.user_three.name,
     aws_iam_user.user_four.name,
     aws_iam_user.user_five.name,
   ]
