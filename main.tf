@@ -1,41 +1,21 @@
 provider "aws" {
+    region  = "ap-south-1"
   # Configuration options
 }
 
-resource "aws_iam_group_membership" "team" {
-  name = "tf-testing-group-membership"
+resource "aws_instance" "webinstance" {
+  ami           = "ami-0b08bfc6ff7069aff"
+  instance_type = "t2.micro"
+  associate_public_ip_address = true
+  key_name = "mumbai-awskey"
 
-  users = [
-    aws_iam_user.user_one.name,
-    aws_iam_user.user_two.name,
-	aws_iam_user.user_three.name,
-    aws_iam_user.user_four.name,
-    aws_iam_user.user_five.name,
-  ]
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_size = 10
+    volume_type = "gp2"
+  }
 
-  group = aws_iam_group.group.name
-}
-
-resource "aws_iam_group" "group" {
-  name = "devops"
-}
-
-resource "aws_iam_user" "user_one" {
-  name = "tony"
-}
-
-resource "aws_iam_user" "user_two" {
-  name = "thor"
-}
-
-resource "aws_iam_user" "user_three" {
-  name = "steve"
-}
-
-resource "aws_iam_user" "user_four" {
-  name = "natasha"
-}
-
-resource "aws_iam_user" "user_five" {
-  name = "bruce"
+  tags = {
+    Name = "Devopsprod"
+  }
 }
