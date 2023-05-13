@@ -1,3 +1,4 @@
 variable "username" {
   type = "list"
-  default = ["tony","nat","steve","thor"]}
+  default = ["tony","nat","steve","thor"]
+  }
