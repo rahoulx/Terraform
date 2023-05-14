@@ -12,6 +12,16 @@ resource "aws_instance" "webinstance" {
   security_groups = ["sg-09ac645ba936eab49"]
   vpc_security_group_ids = [aws_security_group.aws_sg.id] # to assign custom sg
   iam_instance_profile = "ec2-s3fullaccess" #to assign role
+  user_data = << EOF
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install httpd -y
+            sudo touch /var/www/html/index.html
+            sudo echo "<h1>Deployed via Terraform</h1>" > /var/www/html/index.html
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+  
+  EOF
 
   root_block_device {
     volume_size = 10
@@ -21,6 +31,12 @@ resource "aws_instance" "webinstance" {
   tags = {
     Name = "Devopsprod"
   }
+}
+
+#to get o/t of instance IP
+
+output "instance_ip_addr" {
+  value = aws_instance.webinstance.public_ip
 }
 
 #aws_sg_config_1port
