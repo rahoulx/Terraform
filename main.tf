@@ -12,7 +12,7 @@ resource "aws_instance" "webinstance" {
   security_groups = ["sg-09ac645ba936eab49"]
   vpc_security_group_ids = [aws_security_group.aws_sg.id] # to assign custom sg
   iam_instance_profile = "ec2-s3fullaccess" #to assign role
-  user_data = << EOF
+  user_data = <<EOF
             #!/bin/bash
             sudo yum update -y
             sudo yum install httpd -y
