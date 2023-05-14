@@ -10,7 +10,8 @@ resource "aws_instance" "webinstance" {
   associate_public_ip_address = true
   key_name = "mumbai-awskey"
   security_groups = ["sg-09ac645ba936eab49"]
-  vpc_security_group_ids = [aws_security_group.aws_sg.id]
+  vpc_security_group_ids = [aws_security_group.aws_sg.id] # to assign custom sg
+  iam_instance_profile = "ec2-s3fullaccess" #to assign role
 
   root_block_device {
     volume_size = 10
