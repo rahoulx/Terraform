@@ -32,7 +32,7 @@ resource "aws_security_group" "aws_sg" {
   ingress {
     description      = "TLS from my VPC"
     from_port        = 22
-    to_port          = 22
+    to_port          = 8080
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
