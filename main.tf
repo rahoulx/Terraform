@@ -4,14 +4,14 @@ provider "aws" {
 
 # aws_ec2_config
 
-resource "aws_instance" "webinstance" {
+resource "aws_instance" "apacheinstance" {
   ami           = "ami-0b08bfc6ff7069aff"
   instance_type = "t2.micro"
   associate_public_ip_address = true
   key_name = "mumbai-awskey"
-  security_groups = ["sg-09ac645ba936eab49"]
-  vpc_security_group_ids = [aws_security_group.aws_sg.id] # to assign custom sg
-  iam_instance_profile = "ec2-s3fullaccess" #to assign role
+  #security_groups = ["sg-09ac645ba936eab49"]
+  vpc_security_group_ids = [aws_security_group.aws_sg.id] #to_assign_customsg
+  iam_instance_profile = "ec2-s3fullaccess" #to_assign_role
   user_data = <<EOF
             #!/bin/bash
             sudo yum update -y
@@ -33,10 +33,10 @@ resource "aws_instance" "webinstance" {
   }
 }
 
-#to get o/t of instance IP
+#to_get_O/P_of_instanceIP
 
 output "instance_ip_addr" {
-  value = aws_instance.webinstance.public_ip
+  value = aws_instance.apacheinstance.public_ip
 }
 
 #aws_sg_config_1port
