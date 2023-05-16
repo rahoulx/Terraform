@@ -1,14 +1,14 @@
 provider "aws" {
-  region = "ap-south-1"
+  region = var.region
 }
 
 # aws_ec2_config
 
 resource "aws_instance" "apacheinstance" {
-  ami                         = "ami-0b08bfc6ff7069aff"
+  ami                         = var.ami
   instance_type               = "t2.micro"
-  associate_public_ip_address = true
-  key_name                    = "mumbai-awskey"
+  associate_public_ip_address = var.pub_ip
+  key_name                    = var.key_pair
   #security_groups = ["sg-09ac645ba936eab49"]
   vpc_security_group_ids = [aws_security_group.aws_sg.id] #to_assign_customsg
   iam_instance_profile   = "ec2-s3fullaccess"             #to_assign_role
@@ -18,19 +18,13 @@ resource "aws_instance" "apacheinstance" {
     volume_type = "gp2"
   }
 
-  user_data = <<-EOF
-            #!/bin/bash
-            sudo yum update -y
-            sudo yum install httpd -y
-            sudo touch /var/www/html/index.html
-            sudo echo "<h1>Deployed via Terraform</h1>" > /var/www/html/index.html
-            sudo systemctl start httpd
-            sudo systemctl enable httpd
+#used_to_call_file
 
-  EOF
+user_data = file("${path.module}/script.sh")
+
 
   tags = {
-    Name = "Production"
+    Name = var.tag
   }
 }
 
