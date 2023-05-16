@@ -23,9 +23,7 @@ resource "aws_instance" "apacheinstance" {
 user_data = file("${path.module}/script.sh")
 
 
-  tags = {
-    Name = var.tag
-  }
+  tags = var.tag
 }
 
 #to_get_O/P_of_instanceIP
