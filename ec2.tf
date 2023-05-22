@@ -31,6 +31,7 @@ resource "aws_security_group" "aws_sg" {
   name        = "${var.name}-sg" 
   description = "Allow SSH"
   vpc_id      = "aws_vpc.prod_vpc.id"
+}
 
   ingress {
     description      = "TLS from my VPC"
