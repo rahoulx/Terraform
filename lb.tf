@@ -1,6 +1,6 @@
 #creating_target_group
 resource "aws_lb_target_group" "target_group" {
-  name        = "${var.name}-tg"
+  name        = "prod-tg"
   port        = 80
   protocol    = "HTTP"
   target_type = "instance"
@@ -43,7 +43,7 @@ resource "aws_lb" "alb" {
   name            = "${var.name}-alb"
   internal        = false
   load_balancer_type = "application"
-  security_groups = aws_security_group.aws_sg.id
+  security_groups = [aws_security_group.aws_sg.id]
   subnets         = aws_subnet.public_subnet.*.id
   ip_address_type    = "ipv4"
   
