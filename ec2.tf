@@ -55,3 +55,5 @@ resource "aws_security_group" "aws_sg" {
    Name = "${var.name}-sg"
   }
 }
+
+
