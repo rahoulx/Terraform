@@ -53,6 +53,7 @@ resource "aws_lb" "alb" {
   }
 }
 
+#output_of_alb_dns
 output "alb_dns_name" {
   value = aws_lb.alb.dns_name
 }

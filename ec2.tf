@@ -9,7 +9,7 @@ resource "aws_instance" "pub_instance" {
   user_data     = file("${path.module}/script.sh")
 
   tags = {
-    Name = "${var.name}-pub-inst"
+    Name = "${var.name}-pub-inst-${count.index + 1}"
   }
 }
 
