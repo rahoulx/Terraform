@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "target_group" {
 
 #attaching_instance_to_tg
 resource "aws_lb_target_group_attachment" "alb_target_group_attachment" {
-  count            = 2
+  count            = var.instance_count
   target_group_arn = aws_lb_target_group.target_group.arn #tg_arn
   target_id        = aws_instance.pub_instance[count.index].id #both_instance_id
   port             = 80
