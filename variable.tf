@@ -7,11 +7,11 @@ variable "vpc_cidir"{
 }
 
 variable "pub_cidir"{
-    type=string
+    type= list(string)
 }
 
 variable "pub_az"{
-    type=string
+    type= list(string)
 }
 
 variable "prv_cidir"{
@@ -32,4 +32,8 @@ variable "ami"{
 
 variable "instance_type"{
     type=string
+}
+
+variable "instance_count" {
+  type = number
 }

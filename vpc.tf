@@ -6,15 +6,16 @@ resource "aws_vpc" "prod_vpc" {
 }
 }
 
-#public_subnet
+#creating_2_public_subnet_for_lb
 resource "aws_subnet" "public_subnet" {
+  count = length(var.pub_cidir) #2
   vpc_id     = aws_vpc.prod_vpc.id
-  cidr_block = var.pub_cidir
-  availability_zone = var.pub_az
+  cidr_block = var.pub_cidir[count.index] #0 1
+  availability_zone = var.pub_az[count.index]
   map_public_ip_on_launch =true
 
   tags = {
-    Name = "${var.name}-pub-sub"
+    Name = "${var.name}-pub-sub-${count.index + 1}"
 }
 }
 
@@ -47,7 +48,7 @@ resource "aws_eip" "nat_ip" {
 #nat_gateway
 resource "aws_nat_gateway" "ngw" {
   allocation_id = aws_eip.nat_ip.id
-  subnet_id     = aws_subnet.public_subnet.id
+  subnet_id     = aws_subnet.public_subnet[1].id
   tags = {
     Name = "${var.name}-nat"
 }
@@ -70,7 +71,8 @@ resource "aws_route_table" "pub_rt" {
 
 #associate_rt_to_pub_subnet
 resource "aws_route_table_association" "pub_asso" {
-  subnet_id      = aws_subnet.public_subnet.id
+  count          = length(var.pub_cidir)
+  subnet_id      = aws_subnet.public_subnet[count.index].id
   route_table_id = aws_route_table.pub_rt.id
 }
 
